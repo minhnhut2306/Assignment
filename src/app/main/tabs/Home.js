@@ -9,7 +9,7 @@ const Home = (props) => {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState(0);
   const [products, setProducts] = useState([]);
-  const [ cart, setCart ] = useState(useContext(AppContext));
+  const [cart, setCart] = useState(useContext(AppContext));
   const [numberCart, setNumberCart] = useState(cart.length);
   //danh mục dc chọn
   const [selectedCategories, setSelectedCategories] = useState(null);
@@ -144,9 +144,9 @@ const Home = (props) => {
           />
         </View>
 
-           <Text style={styles.textCoffeeBean}>Coffee beans</Text>
+        <Text style={styles.textCoffeeBean}>Coffee beans</Text>
 
-       <View style={styles.listCoffeeBean}>
+        <View style={styles.listCoffeeBean}>
           <FlatList
             data={products}
             horizontal={true}

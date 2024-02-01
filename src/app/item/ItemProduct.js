@@ -9,41 +9,51 @@ const ItemProduct = (props) => {
     const addToCart = (newItem) => {
         // Kiểm tra xem có sản phẩm có cùng _id trong giỏ hàng chưa
         const existingItem = cart.find(item => item._id === newItem._id);
-      
+
         if (existingItem) {
-          // Nếu đã có, tăng giá trị của biến number lên 1
-          const updatedCart = cart.map(item => {
-            if (item._id === newItem._id) {
-              return { ...item, number: item.number + 1 };
-            }
-            return item;
-          });
-      
-          setCart(updatedCart);
+            // Nếu đã có, tăng giá trị của biến number lên 1
+            const updatedCart = cart.map(item => {
+                if (item._id === newItem._id) {
+                    return { ...item, number: item.number + 1 };
+                }
+                return item;
+            });
+
+            setCart(updatedCart);
         } else {
-          // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng với number là 1
-          setCart(prevCart => [...prevCart, { _id: newItem._id, number: 1 }]);
+            // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng với number là 1
+            setCart(prevCart => [...prevCart, { _id: newItem._id, number: 1 }]);
         }
-      
+
         Alert.alert('Thêm vào giỏ hàng thành công');
-      };
-      
+    };
+
 
 
     // const product = route.params?.data?.product;
     return (
 
         <View style={[styles.Container, { backgroundColor: '#000' }]}>
-            <TouchableOpacity onPress={() => { navigation.navigate('Payment', { data: { product } }) }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('Detail', { data: { product } }) }}>
                 <LinearGradient
                     colors={['#252A32', 'rgba(38, 43, 51, 0)']}
                     style={styles.linearGradient}>
                     <View style={styles.top}>
-                        <Image style={styles.image} source={{ uri: product?.image }} />
-                        {product?.isRating && <View style={styles.danhGia}>
-                            <Image source={require('../../../assets/images/ic_star.png')} />
-                            <Text style={styles.diemDanhGia}>{product?.rating}</Text>
-                        </View>}
+                        <View>
+                            <Image
+                                style={{ borderRadius: 20, marginBottom: 10, width: 126, height: 126 }}
+                                source={{ uri: `${product.image}` }} />
+                        </View>
+
+                        <Image
+                            style={{ position: 'absolute', right: 0, borderTopRightRadius: 20 }}
+                            source={require('../../../assets/images/sale.png')} />
+                        <Image
+                            style={{ position: 'absolute', right: 31, top: 5 }}
+                            source={require('../../../assets/images/star.png')} />
+                        <Text style={{ position: 'absolute', top: 2, right: 5, color: 'white', fontWeight: 'bold', fontSize: 11, right: 11 }}>
+                            {product.rating.toFixed(1)}
+                        </Text>
                     </View>
                     <View style={styles.bottom}>
                         <Text style={styles.name} numberOfLines={1}>{product?.name}</Text>
@@ -154,7 +164,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
     },
     top: {
-        // position: 'relative',
+        position: 'relative',
         alignItems: 'center',
         margin: 12,
     },
