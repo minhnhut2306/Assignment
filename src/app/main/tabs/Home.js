@@ -11,16 +11,14 @@ const Home = (props) => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState(useContext(AppContext));
   const [numberCart, setNumberCart] = useState(cart.length);
-  //danh mục dc chọn
   const [selectedCategories, setSelectedCategories] = useState(null);
-
-  //lấy danh sách danh mục
   const [categories, setCategories] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]); // Thêm state để lưu trữ danh sách sản phẩm đã lọc
+
   useEffect(() => {
     const getCategories = async () => {
       try {
         const response = await AxiosInstance().get('/categories');
-        // console.log('Lấy thành công: ', response);
         setCategories(response.categories);
         setSelectedCategories(response.categories[0]);
       } catch (error) {
@@ -30,36 +28,36 @@ const Home = (props) => {
     getCategories();
   }, []);
 
+
+
   //lấy danh sách sản phẩm theo danh mục dc chọn
 
   useCallback(useEffect(() => {
     const getProducts = async () => {
       try {
-        // if (selectedCategories == null) return;
-        // console.log(selectedCategories?._id);
         const response = await AxiosInstance().get(`/products?category=${selectedCategories?._id}`);
-        // console.log('Lấy thành công: ', response);
+        console.log('Products response:', response.products); // Log the products array
         setProducts(response.products);
       } catch (error) {
-        console.log('Lấy danh sách sản phẩm lỗi', error);
-        // console.log(selectedCategories?._id);
+        console.log('Error fetching products:', error);
       }
     }
+
     getProducts();
   }, [selectedCategories]));
-  //lấy danh sách sản phẩm theo danh mục
-
-
-
   const find = (text) => {
     setSearch(text);
     if (text === '') {
       setIsSearch(false);
+      setFilteredProducts(products);
     } else {
       setIsSearch(true);
+      const filtered = products.filter((item) =>
+        item.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredProducts(filtered);
     }
   }
-
   const selectCategory = (item, index) => {
     // console.log(index);
     setSelectedCategories(item);
@@ -104,7 +102,8 @@ const Home = (props) => {
             placeholder='Find Your Coffee...'
             placeholderTextColor={'#52555A'}
             onChangeText={find}
-            value={search} />
+            value={search}
+          />
         </View>
         <View style={styles.listLoai}>
           <ScrollView

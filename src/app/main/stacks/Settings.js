@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image,Alert} from 'react-native'
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../AppContext'
 const Setting = (props) => {
@@ -7,9 +7,39 @@ const Setting = (props) => {
   const Personal_Deltails = () => {
     navigation.navigate('Personal');
   };
+  const History_Deltails = () => {
+    navigation.navigate('Notification');
+  };
+  const Address_Deltails = () => {
+    navigation.navigate('Address');
+  };
+  const handleLogin = () => {
+    navigation.navigate('Login');
+  }
+  
 
-  const logout = () => {
-    setIsLogin(false);
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure want to logout!',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: handleLogin
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+  const About = () => {
+    navigation.navigate('About');
+  };
+  const Help = () => {
+    navigation.navigate('Help');
   };
   return (
     <View style={styles.container}>
@@ -20,7 +50,7 @@ const Setting = (props) => {
         <Text style={styles.text_navigation}>Setting</Text>
       </View>
     <View>
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={History_Deltails}>
         <Image source={require('../../../../assets/images/ic_history.png')} />
         <Text style={styles.textItem}>History</Text>
         <Image style={styles.arrow} source={require('../../../../assets/images/ic_arrow.png')} />
@@ -34,7 +64,7 @@ const Setting = (props) => {
       </TouchableOpacity>
     </View>
     <View>
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={Address_Deltails}>
         <Image source={require('../../../../assets/images/ic_address.png')} />
         <Text style={styles.textItem}>Address</Text>
         <Image style={styles.arrow} source={require('../../../../assets/images/ic_arrow.png')} />
@@ -48,21 +78,21 @@ const Setting = (props) => {
       </TouchableOpacity>
     </View>
     <View>
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={About}>
         <Image source={require('../../../../assets/images/ic_about.png')} />
         <Text style={styles.textItem}>About</Text>
         <Image style={styles.arrow} source={require('../../../../assets/images/ic_arrow.png')} />
       </TouchableOpacity>
     </View>
     <View>
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={Help}>
         <Image source={require('../../../../assets/images/ic_help.png')} />
         <Text style={styles.textItem}>Help</Text>
         <Image style={styles.arrow} source={require('../../../../assets/images/ic_arrow.png')} />
       </TouchableOpacity>
       </View>
       <View>
-        <TouchableOpacity style={styles.item} onPress={logout}>
+        <TouchableOpacity style={styles.item} onPress={handleLogout}>
           <Image source={require('../../../../assets/images/ic_logout.png')} />
           <Text style={styles.textItem}>Logout</Text>
           <Image style={styles.arrow} source={require('../../../../assets/images/ic_arrow.png')} />

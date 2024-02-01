@@ -1,23 +1,24 @@
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
 import React, { useState } from 'react'
+import { AppContext } from '../AppContext';
+import AxiosInstance from '../../helper/AxiosInstance';
 
-const Personal = (props) => {
+const Personal = ({ navigation }) => {
+  const { name, email } = useContext(AppContext);
+  const [newName, setNewName] = useState(name);
+  const [newEmail, setNewEmail] = useState(email);
 
-  const { navigation } = props;
-  const [secureTextEntry, secure] = useState(true);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [ResecureTextEntry, setResecureTextEntry] = useState(true);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const showPassword = () => {
-    secure(!secureTextEntry);
+    setSecureTextEntry(!secureTextEntry);
   }
 
   const showPasswordConfirm = () => {
     setResecureTextEntry(!ResecureTextEntry);
   }
+
 
   return (
     <View style={styles.container}>
@@ -40,6 +41,7 @@ const Personal = (props) => {
               autoCapitalize="characters"
               autoCorrect={true}
               keyboardType="default"
+              onChangeText={setNewName}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -50,6 +52,7 @@ const Personal = (props) => {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
+              onChangeText={setNewEmail}
             />
           </View>
 

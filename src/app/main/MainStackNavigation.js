@@ -99,6 +99,11 @@ import Detail from './stacks/Detail'
 import Payment from './stacks/Payment'
 import Settings from './stacks/Settings'
 import Personal from './stacks/Personal'
+import History from './stacks/History'
+import Address from './stacks/Address'
+import Login from '../authen/Login'
+import About from './stacks/About'
+import Help from './stacks/Help'
 const Stack = createNativeStackNavigator()
 
 const MainStackNavigation = () => {
@@ -109,6 +114,11 @@ const MainStackNavigation = () => {
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="Personal" component={Personal} />
+            <Stack.Screen name="History" component={History} />
+            <Stack.Screen name="Address" component={Address} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="About" component={About} />
+            <Stack.Screen name="Help" component={Help} />
         </Stack.Navigator>
     )
 }

@@ -6,9 +6,6 @@ import LinearGradient from 'react-native-linear-gradient';
 const Notification = () => {
 
     const navigation = useNavigation();
-
-
-
     const colorLinear = ['#262B33', 'rgba(38, 43, 51, 0)'];
     const startLinear = { x: 0, y: 0 };
     const endLinear = { x: 0, y: 1 };
@@ -35,7 +32,7 @@ const Notification = () => {
                 <TouchableOpacity
                     onPress={goToSetting}>
                     <Image
-                        source={require("../../../../assets/images/icback.png")}
+                        source={require("../../../../assets/images/ic_user.png")}
                     />
                 </TouchableOpacity>
             </View>
@@ -66,7 +63,7 @@ const Notification = () => {
                         <View style={styles.rowDetailInTable}>
                             <Image
                                 style={styles.sizeImageInTable}
-                                source={require("../../../../assets/images/icback.png")}
+                                source={require("../../../../assets/images/caffe1.png")}
                             />
 
                             <View style={styles.rowSumPrice}>
@@ -143,7 +140,7 @@ const Notification = () => {
                         <View style={styles.rowDetailInTable}>
                             <Image
                                 style={styles.sizeImageInTable}
-                                source={require("../../../../assets/images/icback.png")}
+                                source={require("../../../../assets/images/caffe2.png")}
                             />
 
                             <View style={styles.rowSumPrice}>
@@ -218,7 +215,7 @@ const Notification = () => {
                         <View style={styles.rowDetailInTable}>
                             <Image
                                 style={styles.sizeImageInTable}
-                                source={require("../../../../assets/images/icback.png")}
+                                source={require("../../../../assets/images/caffe3.png")}
                             />
 
                             <View style={styles.rowSumPrice}>
