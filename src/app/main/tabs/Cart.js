@@ -30,6 +30,7 @@ const Cart =  ({ route }) => {
     };
     fetchData();
   }, [cart]);
+  
 
   const handleQuantityChange = (type = 1, itemIndex) => {
     // type = 1: tăng số lượng

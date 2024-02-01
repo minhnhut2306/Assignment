@@ -8,10 +8,12 @@ export const AppProvider = (props) => {
     const [isLogin, setIsLogin] = useState(true);
     const [heart, setHeart] = useState([]);
     const [productFavorites, setProductFavorites] = useState([]);
-    const [payment,setpayment] = useState([]);
+    const [paycart,setPaycart] = useState([]);
+    const [nameInfo, setNameInfo] = useState("");
+    const [emailInfo, setEmailInfo] = useState("");
     return (
         <AppContext.Provider
-            value={{ cart, setCart, isLogin, setIsLogin , heart, setHeart,productFavorites,setProductFavorites,payment,setpayment}}>
+            value={{ cart, setCart, isLogin, setIsLogin , heart, setHeart,productFavorites,setProductFavorites,paycart,setPaycart}}>
             {children}
         </AppContext.Provider>
     )
