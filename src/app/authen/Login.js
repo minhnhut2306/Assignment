@@ -38,7 +38,7 @@ const Login = (props) => {
     const login = async () => {
         changeEmail(email);
         changePassword(password);
-
+    
         if (email !== '' && password !== '') {
             setCanLogin(true);
             ToastAndroid.showWithGravityAndOffset(
@@ -48,35 +48,32 @@ const Login = (props) => {
                 25,
                 50,
             );
-
-
-
-            //bug bad request
+    
             try {
                 const body = {
                     email: email,
                     password: password
                 };
                 const response = await AxiosInstance().post(`/users/login`, body);
-
-                console.log(response); // In dữ liệu phản hồi để xem thông tin chi tiết
-
+            
+                console.log(response);
+    
                 if (response.status) {
                     setIsLogin(true);
+                    // Chuyển hướng đến màn hình Home
+                    navigation.navigate('Home');
                 } else {
                     Alert.alert('Tài khoản hoặc mật khẩu sai');
                 }
             } catch (error) {
-                // Xử lý lỗi và in ra thông báo lỗi chi tiết
                 console.log(error.response);
-                if (!error.status) {
+                if (!error.status){
                     Alert.alert('Tài khoản hoặc mật khẩu sai');
                 }
-                // Alert.alert('Đã xảy ra lỗi: ' + error.response.data.msg);
-            }
-
+            }            
         }
     };
+    
 
     const register = () => {
         navigation.navigate('Register');

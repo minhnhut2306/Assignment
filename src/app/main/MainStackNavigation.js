@@ -104,6 +104,7 @@ import Address from './stacks/Address'
 import Login from '../authen/Login'
 import About from './stacks/About'
 import Help from './stacks/Help'
+import Register from '../authen/Register'
 const Stack = createNativeStackNavigator()
 
 const MainStackNavigation = () => {
@@ -119,6 +120,7 @@ const MainStackNavigation = () => {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="About" component={About} />
             <Stack.Screen name="Help" component={Help} />
+            <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
     )
 }
