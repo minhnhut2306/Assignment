@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ToastAndroid, Alert } from 'react-native';
 import { AppContext } from '../AppContext';
 import AxiosInstance from '../../helper/AxiosInstance';
 import { useNavigation } from '@react-navigation/native';
@@ -31,22 +31,70 @@ const Cart =  ({ route }) => {
     fetchData();
   }, [cart]);
   
+  const confirmDeleteProduct = (productId, index) => {
+    Alert.alert(
+      'Confirm Delete',
+      'Are you sure you want to remove this product from cart?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => handleDeleteProduct(productId, index)
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+  const deleteProductFromCart = async (productId) => {
+    try {
+      await AxiosInstance().delete(`/cart/${productId}`);
+      ToastAndroid.show('Product removed from cart.', ToastAndroid.SHORT);
+      fetchData(); // Gọi lại fetchData để cập nhật danh sách sản phẩm sau khi xóa
+    } catch (error) {
+      console.error('Error deleting product from cart:', error);
+      ToastAndroid.show('Failed to remove product from cart.', ToastAndroid.SHORT);
+    }
+  };
+  
+  
+  // const handleQuantityChange = (type = 1, itemIndex) => {
+  //   // type = 1: tăng số lượng
+  //   // type = -1: giảm số lượng
+  //   const updatedProducts = [...products]; // Tạo một bản sao của mảng products để cập nhật state
+  //   const updatedNumber = products[itemIndex].number + type; // Sử dụng number thay vì quantity
+  //   if (updatedNumber <= 0) {
+  //     // Xử lý khi số lượng giảm xuống 0
+  //     return;
+  //   }
+  //   updatedProducts[itemIndex].number = updatedNumber; // Cập nhật số lượng của sản phẩm
+  //   // Cập nhật lại state với sản phẩm có số lượng đã cập nhật
+  //   setProducts(updatedProducts);
+  // };
 
-  const handleQuantityChange = (type = 1, itemIndex) => {
-    // type = 1: tăng số lượng
-    // type = -1: giảm số lượng
-    const updatedProducts = [...products]; // Tạo một bản sao của mảng products để cập nhật state
-    const updatedNumber = products[itemIndex].number + type; // Sử dụng number thay vì quantity
+  const handleQuantityChange = (type = 1, productId, itemIndex) => {
+    const updatedProducts = [...products];
+    const updatedNumber = products[itemIndex].number + type;
     if (updatedNumber <= 0) {
-      // Xử lý khi số lượng giảm xuống 0
+      confirmDeleteProduct(productId, itemIndex);
       return;
     }
-    updatedProducts[itemIndex].number = updatedNumber; // Cập nhật số lượng của sản phẩm
-    // Cập nhật lại state với sản phẩm có số lượng đã cập nhật
+    updatedProducts[itemIndex].number = updatedNumber;
     setProducts(updatedProducts);
   };
-
-
+  
+  const handleDeleteProduct = async (productId, index) => {
+    try {
+      await deleteProductFromCart(productId);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+  
+  
 
   const renderItemCart = ({ item, index }) => {
     return (
@@ -79,7 +127,7 @@ const Cart =  ({ route }) => {
             </TouchableOpacity>
             <Text style={{ width: 50, height: 30, borderColor: '#D17842', borderWidth: 1, borderRadius: 5, textAlign: 'center', marginHorizontal: 15, paddingVertical: 5, color: 'white' }}>{item.number}</Text>
             <TouchableOpacity
-              onPress={() => handleQuantityChange(1, index)}
+            onPress={() => handleQuantityChange(-1, index)}
               style={{ width: 30, height: 30, backgroundColor: '#D17842', alignItems: 'center', borderRadius: 5 }}>
               <Text style={{ paddingVertical: 3, fontSize: 18, color: 'white' }}>+</Text>
             </TouchableOpacity>

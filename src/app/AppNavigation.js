@@ -1,21 +1,15 @@
-import { View, Text } from 'react-native'
-import React, { useContext } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import AuthenStackNavigation from './authen/AuthenStackNavigation'
-import MainStackNavigation from './main/MainStackNavigation'
-import { AppContext } from './main/AppContext'
-
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import AuthenStackNavigation from './authen/AuthenStackNavigation';
+import MainStackNavigation from './main/MainStackNavigation';
 const AppNavigation = () => {
-    const { isLogin } = useContext(AppContext);
-    return (
-        <NavigationContainer>
-            {
-                isLogin ?
-                    <MainStackNavigation /> :
-                    <AuthenStackNavigation />
-            }
-        </NavigationContainer>
-    )
-}
+  const AuthenStackNavigation1 = false;
 
-export default AppNavigation
+  return (
+    <NavigationContainer>
+      {AuthenStackNavigation1 ? <AuthenStackNavigation /> : <MainStackNavigation />}
+    </NavigationContainer>
+  );
+};
+
+export default AppNavigation;

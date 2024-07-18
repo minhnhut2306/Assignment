@@ -11,7 +11,6 @@ export const AppProvider = (props) => {
   const [paycart, setPaycart] = useState([]);
   const [nameInfo, setNameInfo] = useState("");
   const [emailInfo, setEmailInfo] = useState("");
-  
   return (
     <AppContext.Provider
       value={{ 
